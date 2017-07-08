@@ -9,3 +9,11 @@ h1 {
 	border: 4px double blue;
 	font-size: xx-large;
 }
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
