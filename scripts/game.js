@@ -7,6 +7,7 @@ var gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
 var cross;
 var dot;
 var win = 0;
+var after_erase = 0;
 
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
@@ -26,6 +27,8 @@ function loadGame(){
 
 function eraseGame(){
 	gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
+	win = 0;
+	after_erase = 1;
 }
 
 var reDraw = function(){
@@ -52,6 +55,8 @@ var reDraw = function(){
 	}
 	if (win > 0){
 		gContext.font = "30px Arial";
+		gContext.fillStyle = 'rgb(255, 128, 0)';
+		gContext.fillRect(0,0,200,100);		
 		if (win === 1){
 			gContext.strokeText("You win!",10,50); 
 		} else {
@@ -63,6 +68,11 @@ var reDraw = function(){
 
 var createOnClickListener = function(){
 	gCanvas.addEventListener('click', function(event) {
+			if (after_erase){
+				after_erase = 0;
+				reDraw();
+				return;
+			}		
 			var x = event.pageX - this.offsetLeft;
 			var y = event.pageY- this.offsetTop;
 			if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
