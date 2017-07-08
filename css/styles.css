@@ -1,0 +1,11 @@
+body {
+	background-color: PeachPuff;
+}
+
+h1 {
+	font-family: Impact, Charcoal, sans-serif;
+	color: LightCoral;
+	text-align: center;
+	border: 4px double blue;
+	font-size: xx-large;
+}
