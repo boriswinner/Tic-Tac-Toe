@@ -77,6 +77,12 @@ var createOnClickListener = function(){
 			var y = event.pageY- this.offsetTop;
 			if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
 				gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
+			} else {
+				gContext.font = "30px Arial";
+				gContext.fillStyle = 'rgb(255, 128, 0)';
+				gContext.fillRect(0,0,400,100);		
+				gContext.strokeText("You are doing it wrong!",10,50); 
+				return;
 			}
 			reDraw();
 			win = checkWin();
