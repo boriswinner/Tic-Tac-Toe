@@ -23,6 +23,7 @@ function loadGame(){
 			gLog.innerHTML = 'Loaded!';
 		}
 	}	
+	createOnClickListener();
 }
 
 function eraseGame(){
@@ -56,11 +57,13 @@ var reDraw = function(){
 	if (win > 0){
 		gContext.font = "30px Arial";
 		gContext.fillStyle = 'rgb(255, 128, 0)';
-		gContext.fillRect(0,0,200,100);		
+		gContext.fillRect(0,0,387,100);		
 		if (win === 1){
 			gContext.strokeText("You win!",10,50); 
-		} else {
+		} else if (win === 2){
 			gContext.strokeText("Computer Wins!",10,50); 			
+		} else {
+			gContext.strokeText("Draw!",10,50); 
 		}
 		eraseGame();
 	}	
@@ -80,7 +83,7 @@ var createOnClickListener = function(){
 			} else {
 				gContext.font = "30px Arial";
 				gContext.fillStyle = 'rgb(255, 128, 0)';
-				gContext.fillRect(0,0,400,100);		
+				gContext.fillRect(0,0,387,100);		
 				gContext.strokeText("You are doing it wrong!",10,50); 
 				return;
 			}
@@ -93,6 +96,7 @@ var createOnClickListener = function(){
 
 var checkWin = function(){
 	var win = 0;
+	var freeCnt = 0;
 	for (var x = 0; x < 3; ++x){
 		if ((gameStatus[x][0] === gameStatus[x][1]) && (gameStatus[x][1] === gameStatus[x][2])){
 			 if (gameStatus[x][0] != 0) win = gameStatus[x][0];
@@ -109,6 +113,12 @@ var checkWin = function(){
 	if ((gameStatus[0][2] == gameStatus[1][1]) && (gameStatus[1][1] == gameStatus[2][0])){
 		if (gameStatus[0][2] != 0) win = gameStatus[0][2];
 	}	
+	for (var x in gameStatus){
+		for (var y in gameStatus[x]){
+			if (gameStatus[x][y] === 0) freeCnt++;
+		}
+	}
+	if (freeCnt === 0) win = 3;
 	return win;
 }
 
@@ -129,4 +139,3 @@ var moveAI = function(){
 
 loadGame();
 reDraw();
-createOnClickListener();
