@@ -4,19 +4,23 @@ var gContext = gCanvas.getContext('2d');
 var gLog = document.getElementById('log');
 gLog.innerHTML = 'Loading...';
 var gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
+var cross;
+var dot;
 
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
     return rand;
-  }
+}
 
-var cross = document.getElementById('cross');
-cross.onload = function(){
-	var dot = document.getElementById('dot');
-	dot.onload = function(){
-		gLog.innerHTML = 'Loaded!';
-	}
+function loadGame(){
+	cross = document.getElementById('cross');
+	cross.onload = function(){
+		dot = document.getElementById('dot');
+		dot.onload = function(){
+			gLog.innerHTML = 'Loaded!';
+		}
+	}	
 }
 
 var reDraw = function(){
@@ -43,17 +47,17 @@ var reDraw = function(){
 	}
 }
 
-reDraw();
-
-gCanvas.addEventListener('click', function(event) {
-	var x = event.pageX - this.offsetLeft;
-	var y = event.pageY- this.offsetTop;
-	if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
-		gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
-	}
-	moveAI();
-	reDraw();
-	}, false);
+var createOnClickListener = function(){
+	gCanvas.addEventListener('click', function(event) {
+			var x = event.pageX - this.offsetLeft;
+			var y = event.pageY- this.offsetTop;
+			if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
+				gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
+			}
+			moveAI();
+			reDraw();
+		}, false);	
+}
 
 var moveAI = function(){
 	var freeCnt = 0;
@@ -68,4 +72,7 @@ var moveAI = function(){
 	gameStatus[Math.floor(p/3)][Math.floor(p%3)] = 2;
 	reDraw;
 }
-//moveAI();
+
+loadGame();
+reDraw();
+createOnClickListener();
