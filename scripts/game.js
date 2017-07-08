@@ -6,6 +6,7 @@ gLog.innerHTML = 'Loading...';
 var gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
 var cross;
 var dot;
+var win = 0;
 
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
@@ -21,6 +22,10 @@ function loadGame(){
 			gLog.innerHTML = 'Loaded!';
 		}
 	}	
+}
+
+function eraseGame(){
+	gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
 }
 
 var reDraw = function(){
@@ -45,6 +50,15 @@ var reDraw = function(){
 			}
 		}
 	}
+	if (win > 0){
+		gContext.font = "30px Arial";
+		if (win === 1){
+			gContext.strokeText("You win!",10,50); 
+		} else {
+			gContext.strokeText("Computer Wins!",10,50); 			
+		}
+		eraseGame();
+	}	
 }
 
 var createOnClickListener = function(){
@@ -54,9 +68,32 @@ var createOnClickListener = function(){
 			if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
 				gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
 			}
+			reDraw();
+			win = checkWin();
 			moveAI();
 			reDraw();
 		}, false);	
+}
+
+var checkWin = function(){
+	var win = 0;
+	for (var x = 0; x < 3; ++x){
+		if ((gameStatus[x][0] === gameStatus[x][1]) && (gameStatus[x][1] === gameStatus[x][2])){
+			 if (gameStatus[x][0] != 0) win = gameStatus[x][0];
+		}
+	}	
+	for (var y = 0; y < 3; ++y){
+		if ((gameStatus[0][y] === gameStatus[1][y]) && (gameStatus[1][y] === gameStatus[2][y])){
+			 if (gameStatus[0][y] != 0) win = gameStatus[0][y];
+		}		
+	}
+	if ((gameStatus[0][0] == gameStatus[1][1]) && (gameStatus[1][1] == gameStatus[2][2])){
+		if (gameStatus[0][0] != 0) win = gameStatus[0][0];
+	}
+	if ((gameStatus[0][2] == gameStatus[1][1]) && (gameStatus[1][1] == gameStatus[2][0])){
+		if (gameStatus[0][2] != 0) win = gameStatus[0][2];
+	}	
+	return win;
 }
 
 var moveAI = function(){
@@ -68,9 +105,10 @@ var moveAI = function(){
 	}
 	if (freeCnt === 0) return;
 	var p;
-	do {p = randomInteger(0,8); gLog.innerHTML += p;} while (gameStatus[Math.floor(p/3)][Math.floor(p%3)] > 0);	
+	do {p = randomInteger(0,8);} while (gameStatus[Math.floor(p/3)][Math.floor(p%3)] > 0);	
 	gameStatus[Math.floor(p/3)][Math.floor(p%3)] = 2;
 	reDraw;
+	win = checkWin();
 }
 
 loadGame();
