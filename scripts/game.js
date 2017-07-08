@@ -1,4 +1,4 @@
-"use strict"
+﻿"use strict"
 var gCanvas = document.getElementById('cgame');
 var gContext = gCanvas.getContext('2d');
 var gLog = document.getElementById('log');
