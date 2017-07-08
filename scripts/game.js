@@ -5,13 +5,16 @@ var gLog = document.getElementById('log');
 gLog.innerHTML = 'Loading...';
 var gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
 
+function randomInteger(min, max) {
+    var rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
+  }
 
 var cross = document.getElementById('cross');
 cross.onload = function(){
-	//gContext.drawImage(cross,0,0);
 	var dot = document.getElementById('dot');
 	dot.onload = function(){
-		//gContext.drawImage(dot,0,0);	
 		gLog.innerHTML = 'Loaded!';
 	}
 }
@@ -33,6 +36,8 @@ var reDraw = function(){
 		for (var y in gameStatus[x]){
 			if (gameStatus[x][y] === 1){
 				gContext.drawImage(cross,129*x,129*y);
+			} else if (gameStatus[x][y] === 2){
+				gContext.drawImage(dot,129*x,129*y);
 			}
 		}
 	}
@@ -46,5 +51,21 @@ gCanvas.addEventListener('click', function(event) {
 	if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
 		gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
 	}
+	moveAI();
 	reDraw();
 	}, false);
+
+var moveAI = function(){
+	var freeCnt = 0;
+	for (var x in gameStatus){
+		for (var y in gameStatus[x]){
+			if (gameStatus[x][y] === 0) freeCnt++;
+		}
+	}
+	if (freeCnt === 0) return;
+	var p;
+	do {p = randomInteger(0,8); gLog.innerHTML += p;} while (gameStatus[Math.floor(p/3)][Math.floor(p%3)] > 0);	
+	gameStatus[Math.floor(p/3)][Math.floor(p%3)] = 2;
+	reDraw;
+}
+//moveAI();
