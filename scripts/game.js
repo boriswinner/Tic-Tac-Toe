@@ -89,7 +89,7 @@ var createOnClickListener = function(){
 			}
 			reDraw();
 			win = checkWin();
-			moveAI();
+			if (!win) moveAI();
 			reDraw();
 		}, false);	
 }
