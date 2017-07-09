@@ -22,7 +22,7 @@ function loadGame(){
 	var pCanvas2 = document.getElementById('gParent2');
 	var pCanvas3 = document.getElementById('gParent3');
 	var h = window.innerHeight - pCanvas3.offsetHeight - pCanvas2.offsetHeight - 100;
-	var size = Math.floor(Math.min(h,window.innerWidth - 50));
+	var size = Math.floor(Math.min(h,screen.width - 50));
 	gCanvas.style.width  = size+'px';
 	gCanvas.style.height = size+'px';	
 	gContext = gCanvas.getContext('2d');	
