@@ -1,17 +1,11 @@
 html, body{
 	overflow: hidden;	
 	width: 100%;
-	height: 100%;	
-	display: flex;
-	flex-direction: column;	
+	height: 100%;		
 }
 
 body {
 	background: PeachPuff url(../img/back.png) repeat;
-}
-
-body > * {
-  flex-shrink: 0;
 }
 
 h1 {
@@ -21,7 +15,9 @@ h1 {
 	border: 4px double blue;
 	font-size: xx-large;
 	background-color: PeachPuff;
-
+	width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h2 {
@@ -32,6 +28,9 @@ h2 {
 	font-size: x-large;
 	font-variant: small-caps;
 	background-color: PeachPuff;
+	width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 canvas {
@@ -42,4 +41,16 @@ canvas {
     display: block;
 	border: 4px double blue;
 	background-color: PeachPuff;
+}
+
+#gParent {
+	background-color: Brown;
+}
+
+#gParent2 {
+	background-color: White;
+}
+
+#gParent3 {
+	background-color: Green;
 }
