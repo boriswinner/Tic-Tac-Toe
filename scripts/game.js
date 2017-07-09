@@ -16,9 +16,16 @@ function randomInteger(min, max) {
 
 function loadGame(){
 	gCanvas = document.getElementById('cgame');
-	gContext = gCanvas.getContext('2d');
 	gLog = document.getElementById('log');
-	gLog.innerHTML = 'Loading...';
+	gLog.innerHTML = 'Loading...';	
+	var pCanvas = document.getElementById('gParent');
+	var pCanvas2 = document.getElementById('gParent2');
+	var pCanvas3 = document.getElementById('gParent3');
+	var h = window.innerHeight - pCanvas3.offsetHeight - pCanvas2.offsetHeight - 100;
+	var size = Math.floor(Math.min(h,window.innerWidth - 50));
+	gCanvas.style.width  = size+'px';
+	gCanvas.style.height = size+'px';	
+	gContext = gCanvas.getContext('2d');	
 	cross = new Image();
 	cross.src = "img/cross.png";
 	cross.onload = function(){
@@ -82,8 +89,9 @@ var createOnClickListener = function(){
 				reDraw();
 				return;
 			}		
-			var x = event.pageX - this.offsetLeft;
-			var y = event.pageY- this.offsetTop;
+			var rect = gCanvas.getBoundingClientRect();
+			var x = (event.clientX-rect.left)/(rect.right-rect.left)*gCanvas.width;
+			var y = (event.clientY-rect.top)/(rect.bottom-rect.top)*gCanvas.height;
 			if (gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] === 0){
 				gameStatus[Math.floor(x / 129)][Math.floor(y / 129)] = 1;
 			} else {
