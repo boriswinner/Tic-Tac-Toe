@@ -1,5 +1,5 @@
 body {
-	background-color: PeachPuff;
+	background: PeachPuff url(../img/back.png) repeat;
 }
 
 h1 {
@@ -11,10 +11,22 @@ h1 {
 	background-color: PeachPuff;
 }
 
+h2 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: SteelBlue;
+	text-align: center;
+	border: 4px double blue;
+	font-size: x-large;
+	font-variant: small-caps;
+	background-color: PeachPuff;
+}
+
 canvas {
     padding-left: 0;
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
     display: block;
+	border: 4px double blue;
+	background-color: PeachPuff;
 }
