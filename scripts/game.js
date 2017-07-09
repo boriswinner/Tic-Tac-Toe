@@ -1,8 +1,7 @@
 ﻿"use strict"
-var gCanvas = document.getElementById('cgame');
-var gContext = gCanvas.getContext('2d');
-var gLog = document.getElementById('log');
-gLog.innerHTML = 'Loading...';
+var gCanvas;
+var gContext;
+var gLog;
 var gameStatus = [[0,0,0],[0,0,0],[0,0,0]];
 var cross;
 var dot;
@@ -16,14 +15,21 @@ function randomInteger(min, max) {
 }
 
 function loadGame(){
-	cross = document.getElementById('cross');
+	gCanvas = document.getElementById('cgame');
+	gContext = gCanvas.getContext('2d');
+	gLog = document.getElementById('log');
+	gLog.innerHTML = 'Loading...';
+	cross = new Image();
+	cross.src = "img/cross.png";
 	cross.onload = function(){
-		dot = document.getElementById('dot');
+		dot = new Image();
+		dot.src = "img/dot.png"
 		dot.onload = function(){
 			gLog.innerHTML = 'Loaded!';
+			createOnClickListener();
+			reDraw();			
 		}
 	}	
-	createOnClickListener();
 }
 
 function eraseGame(){
@@ -100,18 +106,22 @@ var checkWin = function(){
 	for (var x = 0; x < 3; ++x){
 		if ((gameStatus[x][0] === gameStatus[x][1]) && (gameStatus[x][1] === gameStatus[x][2])){
 			 if (gameStatus[x][0] != 0) win = gameStatus[x][0];
+			 return win;
 		}
 	}	
 	for (var y = 0; y < 3; ++y){
 		if ((gameStatus[0][y] === gameStatus[1][y]) && (gameStatus[1][y] === gameStatus[2][y])){
 			 if (gameStatus[0][y] != 0) win = gameStatus[0][y];
+			 return win;
 		}		
 	}
 	if ((gameStatus[0][0] == gameStatus[1][1]) && (gameStatus[1][1] == gameStatus[2][2])){
 		if (gameStatus[0][0] != 0) win = gameStatus[0][0];
+		return win;
 	}
 	if ((gameStatus[0][2] == gameStatus[1][1]) && (gameStatus[1][1] == gameStatus[2][0])){
 		if (gameStatus[0][2] != 0) win = gameStatus[0][2];
+		return win;
 	}	
 	for (var x in gameStatus){
 		for (var y in gameStatus[x]){
@@ -136,6 +146,3 @@ var moveAI = function(){
 	reDraw;
 	win = checkWin();
 }
-
-loadGame();
-reDraw();

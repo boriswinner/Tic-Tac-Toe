@@ -5,22 +5,14 @@
 		<link rel="icon" href="img/favicon.ico" /> 
 		<link rel="stylesheet" type="text/css" href="css/styles.css"> 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+		<script src="scripts/game.js"></script>
 	</head>
-	<body>
-	
-		<div style="display:none;">
-		  <img id="cross" src="img/cross.png">
-		</div>
-		
-		<div style="display:none;">
-		  <img id="dot" src="img/dot.png">
-		</div>		
+	<body onload = "loadGame()" background = "img/back.png">	
 	
 		<h1>Tic Tac Toe</h1>
 		<p id = "log" align="center"></p>;
 		<canvas id = "cgame"  width = "387" height = "387">
 			<p>ВАШ БРОУЗЕР УСТАРЕЛ ОБНОВИТЕС</p>
 		</canvas>
-		<script src="scripts/game.js"></script>
 	</body>
 </html>
