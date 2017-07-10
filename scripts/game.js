@@ -141,6 +141,52 @@ var checkWin = function(){
 }
 
 var goodMove = function(){
+
+
+	for (var i in gameStatus){
+		var cnt = 0;
+		var move = [-1,-1];
+		var tmove =  [-1,-1];
+		for (var j in gameStatus[i]){
+			if (gameStatus[i][j] === 2) cnt++;
+			if ((gameStatus[i][j] === 0)) tmove = [i,j];
+		}
+		if (move[0] != -1) continue;
+		if (cnt === 2) move = tmove;
+		if ((cnt === 2) && (move[0] != -1) && (gameStatus[move[0]][move[1]] === 0))   return move;
+	}	
+	for (var i in gameStatus){
+		var cnt = 0;
+		var move = [-1,-1];
+		var tmove =  [-1,-1];
+		for (var j in gameStatus[i]){
+			if (gameStatus[j][i] === 2) cnt++;
+			if ((gameStatus[j][i] === 0)) tmove = [j,i];
+		}
+		if (move[0] != -1) continue;
+		if (cnt === 2) move = tmove;
+		if ((cnt === 2) && (move[0] != -1) && (gameStatus[move[0]][move[1]] === 0))   return move;
+	}
+	
+	var move = [-1,-1];
+	var cnt = 0;
+	for (var i = 0; i < 3; ++i){
+		if (gameStatus[i][i] === 2) cnt++;
+		if (gameStatus[i][i] === 0) move = [i,i];
+	}
+	if ((cnt === 2) && (move[0] != -1) && (gameStatus[move[0]][move[1]] === 0))   return move;
+
+	var move = [-1,-1];
+	var cnt = 0;
+	for (var i = 0; i < 3; ++i){
+		if (gameStatus[2-i][i] === 2) cnt++;
+		if (gameStatus[2-i][i] === 0) move = [2-i,i];
+	}
+	if ((cnt === 2) && (move[0] != -1) && (gameStatus[move[0]][move[1]] === 0))   return move;	
+	
+	
+	
+	
 	for (var i in gameStatus){
 		var cnt = 0;
 		var move = [-1,-1];
